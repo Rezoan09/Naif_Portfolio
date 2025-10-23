@@ -1,0 +1,43 @@
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background-color:#f7f8f3;color:#203020;}
+header{position:fixed;width:100%;top:0;background-color:rgba(255,255,255,0.9);
+  padding:10px 40px;z-index:1000;box-shadow:0 2px 5px rgba(0,0,0,0.1);}
+nav{display:flex;justify-content:space-between;align-items:center;}
+nav .logo{color:#006b4b;font-weight:600;}
+nav ul{display:flex;list-style:none;}
+nav ul li{margin-left:25px;}
+nav ul li a{text-decoration:none;color:#203020;transition:color .3s;}
+nav ul li a:hover{color:#00a86b;}
+.hero{background:url('images/20230902_175454.jpg')center/cover no-repeat;
+  height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;}
+.hero-overlay{background:rgba(0,0,0,0.45);padding:50px;border-radius:10px;}
+.hero h2{font-size:2.4rem;color:#d6f5e3;}
+.hero p,.hero span{color:#fff;font-size:1rem;}
+.about{padding:100px 10%;background-color:#edf4ef;}
+.about-container{display:flex;flex-wrap:wrap;align-items:center;gap:40px;}
+.about img{width:300px;height:300px;object-fit:cover;border-radius:10px;border:4px solid #00a86b;}
+.about-text h3{color:#006b4b;margin-bottom:15px;}
+.about-text p{line-height:1.7;}
+.experience,.education,.projects,.skills,.publications,.contact{padding:100px 10%;}
+.experience h3,.education h3,.projects h3,.skills h3,.publications h3,.contact h3{
+  color:#006b4b;text-align:center;margin-bottom:40px;}
+.exp-block{margin-bottom:30px;}
+.exp-block h4{color:#203020;}
+.exp-block .role{color:#00a86b;font-weight:500;}
+.education ul,.skills ul,.publications ul{list-style:none;line-height:1.8;}
+.projects .project-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:25px;}
+.project-card{overflow:hidden;border-radius:10px;box-shadow:0 2px 5px rgba(0,0,0,0.1);}
+.project-card img{width:100%;height:230px;object-fit:cover;transition:transform .5s;}
+.project-card:hover img{transform:scale(1.08);}
+.project-card p{text-align:center;padding:10px;background-color:#f0f6f2;}
+.skills ul li{background:#d6f5e3;margin:8px 0;padding:8px 12px;border-left:4px solid #00a86b;}
+.publications ul li{margin-bottom:10px;}
+.contact{text-align:center;background:#dff1e4;}
+.contact a{color:#006b4b;text-decoration:none;}
+.contact a:hover{text-decoration:underline;}
+footer{text-align:center;padding:20px;background:#006b4b;color:#fff;font-size:.9rem;}
+@media(max-width:768px){
+  .about-container{flex-direction:column;}
+  nav ul li{margin-left:15px;}
+  .hero h2{font-size:1.9rem;}
+}
