@@ -3,16 +3,745 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Md. Naif Ahmed Chowdhury | Portfolio</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <title>Md. Naif Ahmed Chowdhury | Forest Researcher</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --forest-deep:   #0d1f0f;
+      --forest-mid:    #1a3a1e;
+      --forest-green:  #2d5a27;
+      --canopy:        #3d7a35;
+      --moss:          #5a8f50;
+      --fern:          #7ab56e;
+      --sage:          #a8c99e;
+      --mist:          #d4e8cc;
+      --parchment:     #f5f0e8;
+      --cream:         #faf7f2;
+      --bark:          #8b6914;
+      --amber:         #c49a2a;
+      --soil:          #3b2a14;
+      --off-white:     #f0ece3;
+      --text-dark:     #1a2d1c;
+      --text-body:     #2e4430;
+      --font-display:  'Playfair Display', Georgia, serif;
+      --font-body:     'DM Sans', sans-serif;
+      --font-mono:     'DM Mono', monospace;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--cream);
+      color: var(--text-body);
+      font-family: var(--font-body);
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ── SCROLL ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.75s cubic-bezier(.22,.68,0,1.1), transform 0.75s cubic-bezier(.22,.68,0,1.1);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.75s ease, transform 0.75s ease; }
+    .reveal-left.visible { opacity: 1; transform: none; }
+    .reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 0.75s ease, transform 0.75s ease; }
+    .reveal-right.visible { opacity: 1; transform: none; }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      padding: 18px 56px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.4s, padding 0.4s;
+    }
+    header.scrolled {
+      background: rgba(13, 31, 15, 0.96);
+      padding: 12px 56px;
+      backdrop-filter: blur(12px);
+    }
+    .logo-mark {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .logo-icon {
+      width: 34px;
+      height: 34px;
+    }
+    .logo-text {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: var(--mist);
+      letter-spacing: 0.04em;
+    }
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 36px;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: rgba(212, 232, 204, 0.75);
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.25s;
+      position: relative;
+    }
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--fern);
+      transition: width 0.3s;
+    }
+    nav ul li a:hover { color: var(--mist); }
+    nav ul li a:hover::after { width: 100%; }
+
+    /* ── HERO ── */
+    .hero {
+      height: 100vh;
+      min-height: 700px;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('20230902_175454.jpg') center / cover no-repeat;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(10,24,12,0.2) 0%,
+        rgba(10,24,12,0.1) 40%,
+        rgba(10,24,12,0.75) 75%,
+        rgba(10,24,12,0.97) 100%
+      );
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 8% 100px;
+      max-width: 860px;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--fern);
+      margin-bottom: 16px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.3s forwards;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 6vw, 5.2rem);
+      line-height: 1.05;
+      color: var(--mist);
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.55s forwards;
+    }
+    .hero h1 em {
+      color: var(--sage);
+      font-style: italic;
+    }
+    .hero-desc {
+      font-size: 1.05rem;
+      color: rgba(212,232,204,0.75);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 36px;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.75s forwards;
+    }
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.95s forwards;
+    }
+    .hero-tag {
+      border: 1px solid rgba(122,181,110,0.4);
+      color: var(--sage);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+    }
+    .scroll-hint {
+      position: absolute;
+      bottom: 36px;
+      right: 8%;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      animation: fadeIn 1s 1.4s forwards;
+    }
+    .scroll-hint span {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      color: rgba(212,232,204,0.4);
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, rgba(122,181,110,0.5), transparent);
+      animation: scrollPulse 2s 1.5s infinite;
+    }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes scrollPulse {
+      0%, 100% { transform: scaleY(1); opacity: 0.5; }
+      50% { transform: scaleY(0.6); opacity: 1; }
+    }
+
+    /* ── SECTION COMMONS ── */
+    section { position: relative; }
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--canopy);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--forest-deep);
+      line-height: 1.15;
+      margin-bottom: 48px;
+    }
+    .section-title em { color: var(--canopy); font-style: italic; }
+
+    /* ── ABOUT ── */
+    .about {
+      padding: 120px 8%;
+      background: var(--cream);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-image-wrap {
+      position: relative;
+    }
+    .about-image-wrap img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      border-radius: 4px;
+      display: block;
+      filter: sepia(10%) contrast(1.05);
+    }
+    .about-image-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -12px -12px 12px 12px;
+      border: 1px solid var(--sage);
+      border-radius: 4px;
+      z-index: -1;
+    }
+    .about-badge {
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      background: var(--forest-mid);
+      color: var(--mist);
+      padding: 18px 22px;
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      line-height: 1.4;
+      border-radius: 4px;
+      max-width: 180px;
+    }
+    .about-badge strong { color: var(--fern); font-size: 1.8rem; display: block; }
+    .about-text p {
+      font-size: 1rem;
+      line-height: 1.85;
+      color: var(--text-body);
+      margin-bottom: 24px;
+    }
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 24px;
+    }
+    .chip {
+      background: var(--mist);
+      color: var(--forest-green);
+      padding: 6px 13px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 400;
+      border: 1px solid var(--sage);
+    }
+
+    /* ── EXPERIENCE ── */
+    .experience {
+      padding: 120px 8%;
+      background: var(--forest-deep);
+      color: var(--mist);
+    }
+    .experience .section-title { color: var(--mist); }
+    .experience .section-label { color: var(--fern); }
+    .timeline { display: flex; flex-direction: column; gap: 0; max-width: 900px; }
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 180px 1px 1fr;
+      gap: 0 32px;
+      position: relative;
+    }
+    .timeline-item + .timeline-item { margin-top: 0; }
+    .t-date {
+      text-align: right;
+      padding: 4px 0 48px;
+    }
+    .t-date .year {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      color: var(--fern);
+      display: block;
+    }
+    .t-date .org {
+      font-size: 0.78rem;
+      color: var(--sage);
+      opacity: 0.7;
+      display: block;
+      margin-top: 4px;
+    }
+    .t-line {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .t-dot {
+      width: 10px;
+      height: 10px;
+      background: var(--fern);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 6px;
+      box-shadow: 0 0 0 4px rgba(122,181,110,0.2);
+    }
+    .t-vert {
+      flex: 1;
+      width: 1px;
+      background: linear-gradient(to bottom, rgba(122,181,110,0.4), rgba(122,181,110,0.05));
+    }
+    .timeline-item:last-child .t-vert { display: none; }
+    .t-body { padding: 0 0 48px; }
+    .t-body h4 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: var(--mist);
+      margin-bottom: 8px;
+    }
+    .t-body p {
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: rgba(212,232,204,0.6);
+    }
+
+    /* ── PROJECTS ── */
+    .projects {
+      padding: 120px 8%;
+      background: var(--parchment);
+    }
+    .project-featured {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 40px;
+      margin-bottom: 60px;
+      align-items: center;
+    }
+    .project-featured-img {
+      position: relative;
+      overflow: hidden;
+      border-radius: 4px;
+      aspect-ratio: 4/3;
+    }
+    .project-featured-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+      filter: sepia(5%) contrast(1.08);
+    }
+    .project-featured-img:hover img { transform: scale(1.04); }
+    .project-featured-img .img-label {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      background: rgba(13,31,15,0.85);
+      color: var(--sage);
+      padding: 6px 12px;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      font-family: var(--font-mono);
+      border-radius: 2px;
+    }
+    .project-side { display: flex; flex-direction: column; gap: 24px; }
+    .project-thumb {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 16px;
+      align-items: center;
+      background: var(--cream);
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid var(--mist);
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .project-thumb:hover { border-color: var(--sage); transform: translateX(4px); }
+    .project-thumb img {
+      width: 100px;
+      height: 80px;
+      object-fit: cover;
+      filter: sepia(5%);
+    }
+    .project-thumb p {
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: var(--text-body);
+      padding-right: 16px;
+    }
+    .project-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .pill {
+      background: transparent;
+      border: 1px solid var(--canopy);
+      color: var(--forest-green);
+      padding: 7px 14px;
+      border-radius: 3px;
+      font-size: 0.8rem;
+      transition: background 0.25s, color 0.25s;
+    }
+    .pill:hover { background: var(--canopy); color: var(--cream); }
+
+    /* ── SKILLS ── */
+    .skills {
+      padding: 120px 8%;
+      background: var(--forest-mid);
+      color: var(--mist);
+    }
+    .skills .section-title { color: var(--mist); }
+    .skills .section-label { color: var(--fern); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      max-width: 1100px;
+    }
+    .skill-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(122,181,110,0.15);
+      border-radius: 6px;
+      padding: 28px;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .skill-card:hover {
+      border-color: rgba(122,181,110,0.4);
+      background: rgba(255,255,255,0.07);
+    }
+    .skill-icon {
+      font-size: 1.6rem;
+      margin-bottom: 14px;
+    }
+    .skill-card h4 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: var(--sage);
+      margin-bottom: 10px;
+    }
+    .skill-card p {
+      font-size: 0.85rem;
+      line-height: 1.75;
+      color: rgba(212,232,204,0.55);
+    }
+
+    /* ── TRAINING ── */
+    .training {
+      padding: 120px 8%;
+      background: var(--cream);
+    }
+    .training-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      max-width: 1100px;
+    }
+    .training-item {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 14px;
+      background: var(--off-white);
+      border: 1px solid var(--mist);
+      border-radius: 4px;
+      padding: 16px 18px;
+      align-items: start;
+      transition: border-color 0.3s, transform 0.25s;
+    }
+    .training-item:hover {
+      border-color: var(--sage);
+      transform: translateY(-2px);
+    }
+    .training-check {
+      width: 32px;
+      height: 32px;
+      background: var(--mist);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--canopy);
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+    .training-item p {
+      font-size: 0.88rem;
+      line-height: 1.55;
+      color: var(--text-body);
+    }
+    .training-item .t-inst {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--moss);
+      margin-top: 4px;
+      display: block;
+    }
+
+    /* ── PUBLICATIONS ── */
+    .publications {
+      padding: 120px 8%;
+      background: var(--forest-deep);
+    }
+    .publications .section-title { color: var(--mist); }
+    .publications .section-label { color: var(--fern); }
+    .pub-list { display: flex; flex-direction: column; gap: 20px; max-width: 860px; }
+    .pub-item {
+      border-left: 2px solid var(--canopy);
+      padding: 20px 24px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 0 4px 4px 0;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .pub-item:hover {
+      border-color: var(--fern);
+      background: rgba(255,255,255,0.06);
+    }
+    .pub-item h4 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      color: var(--sage);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .pub-item p {
+      font-size: 0.83rem;
+      color: rgba(212,232,204,0.5);
+      font-style: italic;
+    }
+    .pub-type {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      color: var(--fern);
+      background: rgba(122,181,110,0.1);
+      padding: 3px 8px;
+      border-radius: 2px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    /* ── CONTACT ── */
+    .contact {
+      padding: 120px 8%;
+      background: var(--parchment);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .contact-text .section-title { margin-bottom: 20px; }
+    .contact-text p {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--text-body);
+      margin-bottom: 40px;
+    }
+    .contact-links { display: flex; flex-direction: column; gap: 20px; }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      text-decoration: none;
+      color: var(--text-body);
+      transition: color 0.3s;
+    }
+    .contact-link:hover { color: var(--canopy); }
+    .contact-link .c-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--mist);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: background 0.3s;
+      flex-shrink: 0;
+    }
+    .contact-link:hover .c-icon { background: var(--sage); }
+    .contact-link .c-text strong { display: block; font-size: 0.78rem; font-family: var(--font-mono); letter-spacing: 0.1em; color: var(--canopy); text-transform: uppercase; margin-bottom: 2px; }
+    .contact-link .c-text span { font-size: 0.95rem; }
+    .contact-visual {
+      position: relative;
+    }
+    .contact-visual-inner {
+      background: var(--forest-mid);
+      border-radius: 6px;
+      padding: 44px;
+      color: var(--mist);
+      text-align: center;
+    }
+    .contact-visual-inner .cv-icon { font-size: 3rem; margin-bottom: 20px; }
+    .contact-visual-inner h4 {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      color: var(--mist);
+      margin-bottom: 12px;
+    }
+    .contact-visual-inner p {
+      font-size: 0.88rem;
+      color: var(--sage);
+      line-height: 1.7;
+    }
+    .contact-visual::before {
+      content: '';
+      position: absolute;
+      inset: 12px -12px -12px 12px;
+      border: 1px solid var(--sage);
+      border-radius: 6px;
+      z-index: -1;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--forest-deep);
+      padding: 32px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer p {
+      color: rgba(212,232,204,0.4);
+      font-size: 0.82rem;
+    }
+    footer .footer-logo {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      color: var(--sage);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── DIVIDER ── */
+    .divider-leaf {
+      text-align: center;
+      padding: 16px;
+      font-size: 1.4rem;
+      opacity: 0.3;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      header { padding: 16px 24px; }
+      header.scrolled { padding: 12px 24px; }
+      nav ul { gap: 18px; }
+      nav ul li a { font-size: 0.72rem; }
+      .hero-content { padding: 0 6% 80px; }
+      .about { grid-template-columns: 1fr; gap: 50px; padding: 80px 6%; }
+      .about-image-wrap { max-width: 380px; }
+      .project-featured { grid-template-columns: 1fr; }
+      .training-list { grid-template-columns: 1fr; }
+      .contact { grid-template-columns: 1fr; gap: 50px; padding: 80px 6%; }
+      .experience, .projects, .skills, .publications { padding: 80px 6%; }
+      .timeline-item { grid-template-columns: 120px 1px 1fr; gap: 0 20px; }
+      footer { flex-direction: column; gap: 12px; text-align: center; }
+    }
+    @media (max-width: 600px) {
+      nav ul { display: none; }
+      .hero h1 { font-size: 2.4rem; }
+      .timeline-item { grid-template-columns: 1px 1fr; }
+      .t-date { display: none; }
+      .skills-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-  <header>
+
+  <!-- HEADER -->
+  <header id="site-header">
+    <a class="logo-mark" href="#home">
+      <svg class="logo-icon" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17 3 C17 3 8 12 8 20 C8 25.5 12 30 17 30 C22 30 26 25.5 26 20 C26 12 17 3 17 3Z" fill="none" stroke="#7ab56e" stroke-width="1.5"/>
+        <path d="M17 30 L17 18" stroke="#7ab56e" stroke-width="1.5"/>
+        <path d="M17 22 L12 17" stroke="#7ab56e" stroke-width="1.2"/>
+        <path d="M17 25 L21 21" stroke="#7ab56e" stroke-width="1.2"/>
+      </svg>
+      <span class="logo-text">Naif Chowdhury</span>
+    </a>
     <nav>
-      <h1 class="logo">Naif Chowdhury</h1>
       <ul>
-        <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#experience">Experience</a></li>
         <li><a href="#projects">Projects</a></li>
@@ -24,172 +753,372 @@
     </nav>
   </header>
 
+  <!-- HERO -->
   <section id="home" class="hero">
-    <div class="hero-overlay">
-      <h2>Md. Naif Ahmed Chowdhury</h2>
-      <p>Research Consultant | Ecology, Forestry & Biodiversity</p>
-      <span>Center for Environmental and Geographic Information Services (CEGIS), Bangladesh</span>
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Forest Researcher &amp; Ecologist</p>
+      <h1>Md. Naif Ahmed<br><em>Chowdhury</em></h1>
+      <p class="hero-desc">Research Consultant at CEGIS, Bangladesh — specialising in forest health monitoring, biodiversity, and ecosystem services across the Sundarbans and beyond.</p>
+      <div class="hero-tags">
+        <span class="hero-tag">🌿 Sundarbans</span>
+        <span class="hero-tag">🌱 Afforestation</span>
+        <span class="hero-tag">📊 EIA / ESIA</span>
+        <span class="hero-tag">🗺 GIS &amp; Remote Sensing</span>
+        <span class="hero-tag">🔬 Soil Carbon Dynamics</span>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
     </div>
   </section>
 
+  <!-- ABOUT -->
   <section id="about" class="about">
-    <div class="about-container">
-      <img src="IMG20220207085656.jpg" alt="Md. Naif Ahmed Chowdhury">
-      <div class="about-text">
-        <h3>About Me</h3>
-        <p>
-          Forest-science professional from Bangladesh with 5+ years of experience in ecology, forestry, and
-          biodiversity. Currently working as a Research Consultant at CEGIS under the Ministry of Water Resources.
-          Focus areas include forest health monitoring, biodiversity surveys, afforestation/reforestation, and
-          landscape restoration planning, environmental impact assessment, and ecosystem services assessment.
-          Experienced across the Sundarbans, Chittagong Hill Tracts, wetlands, and coastal regions.
-        </p>
-        <div class="chips">
-          <span class="chip">Forest Health & Biophysical Survey</span>
-          <span class="chip">EIA / ESIA</span>
-          <span class="chip">Afforestation & Restoration</span>
-          <span class="chip">Biodiversity Inventory</span>
-          <span class="chip">Soil Carbon Dynamics</span>
-          <span class="chip">Ecosystem Services</span>
-        </div>
+    <div class="about-image-wrap reveal-left">
+      <img src="IMG20220207085656.jpg" alt="Md. Naif Ahmed Chowdhury in the field">
+      <div class="about-badge">
+        <strong>5+</strong>
+        Years of field research across Bangladesh
+      </div>
+    </div>
+    <div class="about-text reveal-right">
+      <p class="section-label">About Me</p>
+      <h2 class="section-title">Forest scientist<br><em>rooted in the field</em></h2>
+      <p>
+        Forest-science professional from Bangladesh with deep expertise in ecology, forestry, and biodiversity.
+        Currently working as a Research Consultant at the Center for Environmental and Geographic Information
+        Services (CEGIS) under the Ministry of Water Resources.
+      </p>
+      <p>
+        My work spans forest health monitoring, biodiversity surveys, afforestation/reforestation initiatives,
+        landscape restoration planning, environmental impact assessments, and ecosystem services evaluation —
+        across the Sundarbans, Chittagong Hill Tracts, wetlands, and coastal regions.
+      </p>
+      <div class="chips">
+        <span class="chip">Forest Health &amp; Biophysical Survey</span>
+        <span class="chip">EIA / ESIA</span>
+        <span class="chip">Afforestation &amp; Restoration</span>
+        <span class="chip">Biodiversity Inventory</span>
+        <span class="chip">Soil Carbon Dynamics</span>
+        <span class="chip">Ecosystem Services</span>
       </div>
     </div>
   </section>
 
+  <!-- EXPERIENCE -->
   <section id="experience" class="experience">
-    <h3>Professional Experience</h3>
-
+    <div class="reveal">
+      <p class="section-label">Career</p>
+      <h2 class="section-title">Professional<br><em>Experience</em></h2>
+    </div>
     <div class="timeline">
-      <div class="item">
-        <div class="item-head">
+      <div class="timeline-item reveal">
+        <div class="t-date">
+          <span class="year">2021 — Present</span>
+          <span class="org">CEGIS</span>
+        </div>
+        <div class="t-line"><div class="t-dot"></div><div class="t-vert"></div></div>
+        <div class="t-body">
           <h4>Research Consultant</h4>
-          <span class="org">CEGIS (Center for Environmental and Geographic Information Services)</span>
-          <span class="time">Sep 2021 – Present</span>
+          <p>Forest &amp; ecosystem research, extensive field surveys, ecological data collection &amp; QA/QC, analysis, technical reporting, and proposal preparation. Work spans forest health monitoring, regeneration studies, species diversity, canopy/light assessment, and soil sampling. Tools: Range Finder, Spherical Densiometer, GPS, Lux Meter.</p>
         </div>
-        <p>
-          Forest & ecosystem research, extensive field surveys, ecological data collection & QA/QC, analysis,
-          technical reporting, and proposal preparation. Work spans forest health monitoring, regeneration studies,
-          species diversity, canopy/light assessment, and soil sampling. Tools include Range Finder, Spherical
-          Densiometer, GPS, Lux Meter.
-        </p>
       </div>
-
-      <div class="item">
-        <div class="item-head">
-          <h4>Monitoring, Evaluation & Reporting Officer</h4>
-          <span class="org">Shushilan (NGO)</span>
-          <span class="time">Aug 2020 – Apr 2021</span>
+      <div class="timeline-item reveal">
+        <div class="t-date">
+          <span class="year">2020 — 2021</span>
+          <span class="org">Shushilan NGO</span>
         </div>
-        <p>
-          Oversaw disaster risk reduction in Rohingya refugee camps via afforestation and structural interventions,
-          data collection, database management, and operational reporting (weekly updates, operational plans,
-          beneficiary databases, distribution reports).
-        </p>
+        <div class="t-line"><div class="t-dot"></div><div class="t-vert"></div></div>
+        <div class="t-body">
+          <h4>Monitoring, Evaluation &amp; Reporting Officer</h4>
+          <p>Oversaw disaster risk reduction in Rohingya refugee camps via afforestation and structural interventions, data collection, database management, and operational reporting including weekly updates, operational plans, beneficiary databases, and distribution reports.</p>
+        </div>
       </div>
-
-      <div class="item">
-        <div class="item-head">
+      <div class="timeline-item reveal">
+        <div class="t-date">
+          <span class="year">2017 — 2018</span>
+          <span class="org">Khulna University</span>
+        </div>
+        <div class="t-line"><div class="t-dot"></div><div class="t-vert"></div></div>
+        <div class="t-body">
           <h4>Research Assistant</h4>
-          <span class="org">Khulna University (Discipline of Forestry & Wood Technology)</span>
-          <span class="time">Jan 2017 – Dec 2018</span>
+          <p>Lab analysis for soil texture, bulk density, organic carbon and plant nutrients (N, P, K, Na), EC &amp; pH. Contributed to establishing Bangladesh's first soil archive and to the Bangladesh Forest Inventory project through sample processing, database development, and analysis.</p>
         </div>
-        <p>
-          Lab analysis for soil texture, bulk density, organic carbon and plant nutrients (N, P, K, Na), EC & pH.
-          Contributed to establishing Bangladesh’s first soil archive and to the Bangladesh Forest Inventory
-          project through sample processing, database development and analysis.
-        </p>
       </div>
     </div>
   </section>
 
+  <!-- PROJECTS -->
   <section id="projects" class="projects">
-    <h3>Key Projects & Field Work</h3>
-
-    <div class="project-grid">
-      <div class="project-card">
-        <img src="20230902_175454.jpg" alt="Sundarbans health monitoring">
-        <p>Sundarbans Mangrove Forest Health Monitoring — BIFPCL (2021–present)</p>
+    <div class="reveal">
+      <p class="section-label">Fieldwork</p>
+      <h2 class="section-title">Key Projects<br><em>&amp; Field Work</em></h2>
+    </div>
+    <div class="project-featured reveal">
+      <div class="project-featured-img">
+        <img src="20230902_175454.jpg" alt="Sundarbans Mangrove Forest">
+        <span class="img-label">Ongoing · 2021–Present</span>
       </div>
-      <div class="project-card">
-        <img src="IMG_20220802_215031_486.jpg" alt="ESIA Camp 26 Teknaf">
-        <p>ESIA for Temporary Facility, Camp 26 (Teknaf) — UNDP (Project Lead, 2025–present)</p>
-      </div>
-      <div class="project-card">
-        <img src="20230903_114209.jpg" alt="NbS PBCRG">
-        <p>Nature‑Based Solutions for PBCRG Schemes — UNDP (Assistant PL, 2025–present)</p>
+      <div>
+        <p class="section-label">Featured Project</p>
+        <h3 style="font-family:var(--font-display);font-size:1.6rem;color:var(--forest-deep);line-height:1.3;margin-bottom:16px;">Sundarbans Mangrove Forest Health Monitoring</h3>
+        <p style="font-size:0.92rem;line-height:1.8;color:var(--text-body);margin-bottom:24px;">Ongoing research initiative under BIFPCL tracking long-term forest health, regeneration, canopy structure, and biodiversity across the Sundarbans — the world's largest mangrove ecosystem.</p>
+        <div class="project-side">
+          <div class="project-thumb">
+            <img src="IMG_20220802_215031_486.jpg" alt="ESIA Camp 26 Teknaf">
+            <p>ESIA for Temporary Facility, Camp 26 (Teknaf) — UNDP <span style="color:var(--moss);font-size:0.78rem;display:block;">Project Lead, 2025–Present</span></p>
+          </div>
+          <div class="project-thumb">
+            <img src="20230903_114209.jpg" alt="NbS PBCRG">
+            <p>Nature‑Based Solutions for PBCRG Schemes — UNDP <span style="color:var(--moss);font-size:0.78rem;display:block;">Assistant PL, 2025–Present</span></p>
+          </div>
+        </div>
       </div>
     </div>
-
-    <div class="project-list">
-      <div class="pill">Integrated Collaborative Forest Management Plan — BFD (2024–)</div>
-      <div class="pill">Agroecological Landscape Restoration (CHT) — ADB (2022–)</div>
-      <div class="pill">Landslide Risk Profile & Bio‑engineering (CHT Roads) — RHD (2022–)</div>
-      <div class="pill">Coastal Greenbelt Zones Planning — World Bank (2023)</div>
-      <div class="pill">Water Quality DB of Trans‑boundary Rivers — JRC (2020–2023)</div>
-      <div class="pill">Independent ESMS Audit (ECCCP‑Flood) — PKSF (2023)</div>
-      <div class="pill">SEA for SW Region incl. Sundarbans — BFD (2021)</div>
-      <div class="pill">F&A Climate Risk & Adaptation — FAO (2021–2023)</div>
-      <div class="pill">National Adaptation Plan (NAP) — GCF/UNDP/DoE (2021–2022)</div>
-      <div class="pill">EPZ Feasibility & ESIA — BEPZA (2021–2022)</div>
-      <div class="pill">IEE/EIA/RP Studies — TGTDCL (2021–2022)</div>
-      <div class="pill">Vascular Plant Survey — BNH (2022–)</div>
+    <div class="reveal">
+      <p class="section-label" style="margin-bottom:16px;">Additional Projects</p>
+      <div class="project-pills">
+        <span class="pill">Integrated Collaborative Forest Management Plan — BFD (2024–)</span>
+        <span class="pill">Agroecological Landscape Restoration (CHT) — ADB (2022–)</span>
+        <span class="pill">Landslide Risk Profile &amp; Bio-engineering (CHT) — RHD (2022–)</span>
+        <span class="pill">Coastal Greenbelt Zones Planning — World Bank (2023)</span>
+        <span class="pill">Water Quality DB of Trans-boundary Rivers — JRC (2020–2023)</span>
+        <span class="pill">Independent ESMS Audit (ECCCP-Flood) — PKSF (2023)</span>
+        <span class="pill">SEA for SW Region incl. Sundarbans — BFD (2021)</span>
+        <span class="pill">F&amp;A Climate Risk &amp; Adaptation — FAO (2021–2023)</span>
+        <span class="pill">National Adaptation Plan (NAP) — GCF/UNDP/DoE (2021–2022)</span>
+        <span class="pill">EPZ Feasibility &amp; ESIA — BEPZA (2021–2022)</span>
+        <span class="pill">Vascular Plant Survey — BNH (2022–)</span>
+      </div>
     </div>
   </section>
 
+  <!-- SKILLS -->
   <section id="skills" class="skills">
-    <h3>Technical & Research Skills</h3>
-    <ul>
-      <li>GIS & Mapping: ArcGIS Pro, ArcGIS Survey123; Map creation, digitizing, overlays, interpolation</li>
-      <li>Field Tools: Range Finder, Spherical Densiometer, GPS, Lux Meter</li>
-      <li>Data/Programming: R; Digital & Internet literacy; MS Word/Excel/PowerPoint</li>
-      <li>Field/Data Apps: ODK Collect, i‑Tree Eco</li>
-      <li>Assessment: Environmental & Social Impact Assessment (ESIA), Ecosystem services assessment</li>
-      <li>Domains: Forest health, biodiversity inventory, soil carbon & biogeochemical analysis</li>
-    </ul>
+    <div class="reveal">
+      <p class="section-label">Expertise</p>
+      <h2 class="section-title">Technical &amp;<br><em>Research Skills</em></h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="skill-icon">🗺</div>
+        <h4>GIS &amp; Spatial Analysis</h4>
+        <p>ArcGIS Pro, ArcGIS Survey123. Map creation, digitizing, overlays, interpolation, and spatial data management across diverse ecosystems.</p>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">🔬</div>
+        <h4>Field Research</h4>
+        <p>Range Finder, Spherical Densiometer, GPS, Lux Meter. Soil sampling, tree inventory, canopy assessment, and biodiversity surveys.</p>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">💻</div>
+        <h4>Data &amp; Programming</h4>
+        <p>R for statistical analysis, ODK Collect and i‑Tree Eco for data capture, MS Office suite, and digital literacy across platforms.</p>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">🌿</div>
+        <h4>Environmental Assessment</h4>
+        <p>Environmental &amp; Social Impact Assessment (ESIA), ecosystem services assessment, and strategic environmental evaluation.</p>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">🌱</div>
+        <h4>Forest Science</h4>
+        <p>Forest health monitoring, biodiversity inventory, soil carbon and biogeochemical analysis, and regeneration studies.</p>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">📋</div>
+        <h4>Research &amp; Reporting</h4>
+        <p>Technical report writing, QA/QC, database development, proposal preparation, and multi-stakeholder project coordination.</p>
+      </div>
+    </div>
   </section>
 
+  <!-- TRAINING -->
   <section id="training" class="training">
-    <h3>Training & Certifications</h3>
-    <ul class="checklist">
-      <li>ArcGIS Pro — CEGIS (Apr 9–13, 2025)</li>
-      <li>Earth Observation for Forest Carbon Estimation/Degradation Monitoring — ICIMOD (Apr 29–May 2, 2024)</li>
-      <li>LiDAR‑based UAV Tech for Forest Management — Busan Technopark, Uconsystem, Hojung, BFD, CEGIS (Nov 25–Dec 7, 2023)</li>
-      <li>Urban Tree Inventory using i‑Tree — USFS Compass (Sep 28–29, 2023)</li>
-      <li>Practitioner’s Course on ESIA — CEGIS (Apr 9–12, 2023)</li>
-      <li>Vascular Plant Survey & Herbarium — Bangladesh National Herbarium (Oct 13–20, 2022)</li>
-      <li>Forestry & Agroforestry Tech for Professionals — BARC (Mar 2–3, 2022)</li>
-      <li>Allometric Equation Dev. (Hill Zone) — BFD/FAO/Khulna Univ. (Mar–Apr 2018)</li>
-      <li>Research Methodology — HEQEP CP‑4035 & Khulna Univ. (Jan 26–27, 2018)</li>
-    </ul>
+    <div class="reveal">
+      <p class="section-label">Continuous Learning</p>
+      <h2 class="section-title">Training &amp;<br><em>Certifications</em></h2>
+    </div>
+    <div class="training-list">
+      <div class="training-item reveal">
+        <div class="training-check">✓</div>
+        <div>
+          <p>ArcGIS Pro</p>
+          <span class="t-inst">CEGIS — Apr 9–13, 2025</span>
+        </div>
+      </div>
+      <div class="training-item reveal">
+        <div class="training-check">✓</div>
+        <div>
+          <p>Earth Observation for Forest Carbon Estimation / Degradation Monitoring</p>
+          <span class="t-inst">ICIMOD — Apr 29–May 2, 2024</span>
+        </div>
+      </div>
+      <div class="training-item reveal">
+        <div class="training-check">✓</div>
+        <div>
+          <p>LiDAR-based UAV Technology for Forest Management</p>
+          <span class="t-inst">Busan Technopark / BFD / CEGIS — Nov–Dec 2023</span>
+        </div>
+      </div>
+      <div class="training-item reveal">
+        <div class="training-check">✓</div>
+        <div>
+          <p>Urban Tree Inventory using i‑Tree Eco</p>
+          <span class="t-inst">USFS Compass — Sep 28–29, 2023</span>
+        </div>
+      </div>
+      <div class="training-item reveal">
+        <div class="training-check">✓</div>
+        <div>
+          <p>Practitioner's Course on ESIA</p>
+          <span class="t-inst">CEGIS — Apr 9–12, 2023</span>
+        </div>
+      </div>
+      <div class="training-item reveal">
+        <div class="training-check">✓</div>
+        <div>
+          <p>Vascular Plant Survey &amp; Herbarium Techniques</p>
+          <span class="t-inst">Bangladesh National Herbarium — Oct 2022</span>
+        </div>
+      </div>
+      <div class="training-item reveal">
+        <div class="training-check">✓</div>
+        <div>
+          <p>Forestry &amp; Agroforestry Technology for Professionals</p>
+          <span class="t-inst">BARC — Mar 2–3, 2022</span>
+        </div>
+      </div>
+      <div class="training-item reveal">
+        <div class="training-check">✓</div>
+        <div>
+          <p>Allometric Equation Development (Hill Zone)</p>
+          <span class="t-inst">BFD / FAO / Khulna Univ. — Mar–Apr 2018</span>
+        </div>
+      </div>
+      <div class="training-item reveal">
+        <div class="training-check">✓</div>
+        <div>
+          <p>Research Methodology</p>
+          <span class="t-inst">HEQEP CP-4035 / Khulna Univ. — Jan 2018</span>
+        </div>
+      </div>
+    </div>
   </section>
 
+  <!-- PUBLICATIONS -->
   <section id="publications" class="publications">
-    <h3>Selected Publications</h3>
-    <ul>
-      <li><b>Exploring Soil Carbon and Nutrient Profiles in the Sundarbans Mangrove Forest of Bangladesh</b>, <i>Ecol Conserv Sci</i> (2025).</li>
-      <li><b>Spatiotemporal change detection of LULC in Fashiakhali Wildlife Sanctuary</b>, <i>Modeling Earth Systems & Environment</i> (2023).</li>
-      <li><b>Geomorphological changes and ecosystem services dynamics of Bhasan Char Island</b>, <i>Ocean & Coastal Management</i> (2024).</li>
-      <li><i>M.Sc. Thesis:</i> Carbon dynamics in soil profile of mature & pioneer stands of the Sundarbans; variation across saline zones.</li>
-      <li><i>B.Sc. Thesis:</i> Nutrients (N, P, K) in leaves of Heritiera fomes across saline zones; ArcMap 10.2.1 mapping.</li>
-    </ul>
+    <div class="reveal">
+      <p class="section-label">Research Output</p>
+      <h2 class="section-title">Selected<br><em>Publications</em></h2>
+    </div>
+    <div class="pub-list">
+      <div class="pub-item reveal">
+        <span class="pub-type">Journal · 2025</span>
+        <h4>Exploring Soil Carbon and Nutrient Profiles in the Sundarbans Mangrove Forest of Bangladesh</h4>
+        <p>Ecological Conservation Science</p>
+      </div>
+      <div class="pub-item reveal">
+        <span class="pub-type">Journal · 2024</span>
+        <h4>Geomorphological Changes and Ecosystem Services Dynamics of Bhasan Char Island</h4>
+        <p>Ocean &amp; Coastal Management</p>
+      </div>
+      <div class="pub-item reveal">
+        <span class="pub-type">Journal · 2023</span>
+        <h4>Spatiotemporal Change Detection of LULC in Fashiakhali Wildlife Sanctuary</h4>
+        <p>Modeling Earth Systems &amp; Environment</p>
+      </div>
+      <div class="pub-item reveal">
+        <span class="pub-type">M.Sc. Thesis</span>
+        <h4>Carbon Dynamics in Soil Profile of Mature &amp; Pioneer Stands of the Sundarbans</h4>
+        <p>Variation across saline zones — Khulna University</p>
+      </div>
+      <div class="pub-item reveal">
+        <span class="pub-type">B.Sc. Thesis</span>
+        <h4>Nutrients (N, P, K) in Leaves of Heritiera fomes Across Saline Zones</h4>
+        <p>ArcMap 10.2.1 spatial mapping — Khulna University</p>
+      </div>
+    </div>
   </section>
 
+  <!-- CONTACT -->
   <section id="contact" class="contact">
-    <h3>Contact</h3>
-    <p>Email: <a href="mailto:naiffwt@gmail.com">naiffwt@gmail.com</a></p>
-    <p>Phone: <a href="tel:+8801675193186">+88 01675-193186</a></p>
-    <p>Profile: <a href="https://www.cegisbd.com/hr_profile?Initial=NAX" target="_blank" rel="noopener">CEGIS Official Profile</a></p>
+    <div class="contact-text reveal-left">
+      <p class="section-label">Get in Touch</p>
+      <h2 class="section-title">Let's connect<br><em>about research</em></h2>
+      <p>Open to collaborations, consultancy enquiries, and research partnerships in forest ecology, biodiversity assessment, and environmental impact evaluation.</p>
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:naiffwt@gmail.com">
+          <div class="c-icon">✉</div>
+          <div class="c-text">
+            <strong>Email</strong>
+            <span>naiffwt@gmail.com</span>
+          </div>
+        </a>
+        <a class="contact-link" href="tel:+8801675193186">
+          <div class="c-icon">📞</div>
+          <div class="c-text">
+            <strong>Phone</strong>
+            <span>+88 01675-193186</span>
+          </div>
+        </a>
+        <a class="contact-link" href="https://www.cegisbd.com/hr_profile?Initial=NAX" target="_blank" rel="noopener">
+          <div class="c-icon">🔗</div>
+          <div class="c-text">
+            <strong>Official Profile</strong>
+            <span>CEGIS — cegisbd.com</span>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="contact-visual reveal-right">
+      <div class="contact-visual-inner">
+        <div class="cv-icon">🌿</div>
+        <h4>Research Consultant</h4>
+        <p>Center for Environmental &amp; Geographic Information Services (CEGIS)<br>Ministry of Water Resources, Bangladesh</p>
+      </div>
+    </div>
   </section>
 
+  <!-- FOOTER -->
   <footer>
-    <p>© 2025 Md. Naif Ahmed Chowdhury | All rights reserved.</p>
+    <span class="footer-logo">Naif Chowdhury</span>
+    <p>© 2025 Md. Naif Ahmed Chowdhury · All rights reserved</p>
   </footer>
 
   <script>
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click',e=>{
+    // Header scroll effect
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          const delay = entry.target.dataset.delay || 0;
+          setTimeout(() => entry.target.classList.add('visible'), delay);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    // Stagger sibling reveals
+    document.querySelectorAll('.timeline-item, .skill-card, .training-item, .pub-item').forEach((el, i) => {
+      el.dataset.delay = (i % 4) * 100;
+    });
+
+    revealEls.forEach(el => observer.observe(el));
+
+    // Smooth nav scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
         e.preventDefault();
-        document.querySelector(a.getAttribute('href')).scrollIntoView({behavior:'smooth'});
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
       });
     });
   </script>
